@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { HOME_DIR } from "../constants";
 
-const LOG_FILE = path.join(HOME_DIR, "claude-code-router.log");
+const LOG_FILE = path.join(HOME_DIR, "cr-router.log");
 
 // Ensure log directory exists
 if (!fs.existsSync(HOME_DIR)) {

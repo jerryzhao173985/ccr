@@ -185,7 +185,7 @@ const request = {
   }
 };
 
-// Make request to CCR
+// Make request to CR
 fetch("http://localhost:3000/v1/messages", {
   method: "POST",
   headers: {
@@ -293,4 +293,4 @@ The Responses API provides enhanced capabilities for o3 and gpt-4o models:
 - ✅ Better structured output support
 - ✅ Integrated tool calling within reasoning
 
-Use the `responses-api` transformer in CCR to automatically handle all parameter conversions and take advantage of these features.
+Use the `responses-api` transformer in CR to automatically handle all parameter conversions and take advantage of these features.

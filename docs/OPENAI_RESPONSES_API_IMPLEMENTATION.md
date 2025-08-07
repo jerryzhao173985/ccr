@@ -1,7 +1,7 @@
 # OpenAI Responses API Implementation Documentation
 
 ## Overview
-This document chronicles the complete implementation journey of integrating OpenAI's Responses API into the Claude Code Router (CCR), including all challenges faced, solutions developed, and features implemented.
+This document chronicles the complete implementation journey of integrating OpenAI's Responses API into the Claude Router (CR), including all challenges faced, solutions developed, and features implemented.
 
 ## Table of Contents
 1. [Initial Integration](#initial-integration)
@@ -269,7 +269,7 @@ shouldContinue() → Determines if model wants to continue
 
 ## Summary
 
-The OpenAI Responses API integration represents a significant enhancement to CCR, enabling:
+The OpenAI Responses API integration represents a significant enhancement to CR, enabling:
 - Full compatibility with OpenAI's latest API
 - Seamless tool usage without interruptions
 - Complete task execution with multi-step plans
