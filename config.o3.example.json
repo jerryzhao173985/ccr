@@ -1,0 +1,119 @@
+{
+  "// OpenAI o3 Model Configuration": "Support for o3 and o3-mini models",
+  "API_TIMEOUT_MS": 600000,
+  "Providers": [
+    {
+      "name": "openai",
+      "api_base_url": "https://api.openai.com/v1/chat/completions",
+      "api_key": "sk-xxx",
+      "models": [
+        "o3",
+        "o3-mini",
+        "o3-mini-2025-01-31",
+        "gpt-4o",
+        "gpt-4o-mini",
+        "gpt-3.5-turbo"
+      ],
+      "transformer": {
+        "use": ["openai"],
+        "o3": {
+          "use": ["o3", "openai-response-format"]
+        },
+        "o3-mini": {
+          "use": ["o3", "openai-response-format"]
+        },
+        "o3-mini-2025-01-31": {
+          "use": ["o3", "openai-response-format"]
+        },
+        "gpt-4o": {
+          "use": ["openai", "openai-response-format", "predicted-output"]
+        },
+        "gpt-4o-mini": {
+          "use": ["openai", "openai-response-format", "predicted-output"]
+        }
+      }
+    }
+  ],
+  "Router": {
+    "default": "openai,gpt-4o-mini",
+    "background": "openai,gpt-4o-mini",
+    "think": "openai,o3-mini",
+    "longContext": "openai,gpt-4o",
+    "webSearch": "openai,gpt-4o",
+    "structuredOutput": "openai,o3-mini",
+    "jsonMode": "openai,o3-mini",
+    "predictedOutput": "openai,gpt-4o-mini"
+  },
+  
+  "// Important Notes about o3 Models": [
+    "1. o3 models use 'max_completion_tokens' instead of 'max_tokens'",
+    "2. o3 models support response_format (json_object and json_schema)",
+    "3. o3 models do NOT support prediction parameter",
+    "4. o3 models do NOT support presence_penalty, frequency_penalty, etc.",
+    "5. The O3Transformer handles these differences automatically"
+  ],
+  
+  "// Example Requests": {
+    "o3_with_json_mode": {
+      "model": "o3-mini",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Generate a person object with name and age in JSON"
+        }
+      ],
+      "response_format": {
+        "type": "json_object"
+      },
+      "max_tokens": 100
+    },
+    "o3_with_structured_output": {
+      "model": "o3-mini",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Create a task list"
+        }
+      ],
+      "response_format": {
+        "type": "json_schema",
+        "json_schema": {
+          "name": "task_list",
+          "strict": true,
+          "schema": {
+            "type": "object",
+            "properties": {
+              "tasks": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "integer" },
+                    "title": { "type": "string" },
+                    "completed": { "type": "boolean" }
+                  },
+                  "required": ["id", "title", "completed"]
+                }
+              }
+            },
+            "required": ["tasks"]
+          }
+        }
+      },
+      "max_tokens": 200
+    }
+  },
+  
+  "// Transformer Details": {
+    "O3Transformer": {
+      "purpose": "Handles o3-specific requirements",
+      "features": [
+        "Converts max_tokens to max_completion_tokens",
+        "Removes unsupported parameters",
+        "Keeps response_format support",
+        "Removes prediction parameter if present",
+        "Ensures JSON keyword in messages for json modes"
+      ]
+    }
+  }
+}

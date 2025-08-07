@@ -1,0 +1,3 @@
+Failed to parse config file at /Users/jerry/.claude-code-router/config.json
+Error details: JSON5: invalid character 'E' at 35:1
+Please check your config file syntax.

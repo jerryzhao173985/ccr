@@ -76,6 +76,30 @@ const getUseModel = async (req: any, tokenCount: number, config: any) => {
     }
     return req.body.model;
   }
+  
+  // Check for OpenAI response_format and route accordingly
+  if (req.body.response_format) {
+    const { type, json_schema } = req.body.response_format;
+    
+    // Route to structured output model for json_schema
+    if (type === "json_schema" && config.Router.structuredOutput) {
+      log("Using structured output model for json_schema response format");
+      return config.Router.structuredOutput;
+    }
+    
+    // Route to JSON mode model for json_object
+    if (type === "json_object" && config.Router.jsonMode) {
+      log("Using JSON mode model for json_object response format");
+      return config.Router.jsonMode;
+    }
+  }
+  
+  // Check for OpenAI predicted outputs and route accordingly
+  if (req.body.prediction && config.Router.predictedOutput) {
+    log("Using predicted output model for request with prediction");
+    return config.Router.predictedOutput;
+  }
+  
   // if tokenCount is greater than the configured threshold, use the long context model
   const longContextThreshold = config.Router.longContextThreshold || 60000;
   if (tokenCount > longContextThreshold && config.Router.longContext) {

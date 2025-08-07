@@ -1,0 +1,106 @@
+{
+  // Example configuration for OpenAI Response Format API support
+  // This configuration demonstrates how to use structured outputs and JSON mode
+  
+  "APIKEY": "your-optional-api-key",
+  "LOG": true,
+  "API_TIMEOUT_MS": 600000,
+  "NON_INTERACTIVE_MODE": false,
+  
+  "Providers": [
+    {
+      "name": "openai",
+      "api_base_url": "https://api.openai.com/v1/chat/completions",
+      "api_key": "sk-xxx", // Replace with your OpenAI API key
+      "models": [
+        // Models that support structured outputs (json_schema)
+        "gpt-4o-mini",
+        "gpt-4o-mini-2024-07-18",
+        "gpt-4o-2024-08-06",
+        "gpt-4o-2024-11-20",
+        "o1",
+        "o1-mini",
+        "o1-preview",
+        // Models that support JSON mode (json_object)
+        "gpt-3.5-turbo",
+        "gpt-3.5-turbo-0125",
+        "gpt-3.5-turbo-1106",
+        "gpt-4-turbo",
+        "gpt-4-turbo-preview"
+      ],
+      "transformer": {
+        // Use the OpenAI response format transformer for all models
+        "use": ["openai", "openai-response-format"]
+      }
+    },
+    {
+      "name": "openrouter",
+      "api_base_url": "https://openrouter.ai/api/v1/chat/completions",
+      "api_key": "sk-or-xxx",
+      "models": [
+        "openai/gpt-4o-mini",
+        "openai/gpt-4o-2024-08-06",
+        "openai/gpt-3.5-turbo",
+        "anthropic/claude-3.5-sonnet",
+        "google/gemini-2.5-pro-preview"
+      ],
+      "transformer": {
+        "use": ["openrouter"],
+        // Apply OpenAI response format transformer only to OpenAI models
+        "openai/gpt-4o-mini": {
+          "use": ["openai-response-format"]
+        },
+        "openai/gpt-4o-2024-08-06": {
+          "use": ["openai-response-format"]
+        }
+      }
+    },
+    {
+      "name": "deepseek",
+      "api_base_url": "https://api.deepseek.com/chat/completions",
+      "api_key": "sk-xxx",
+      "models": ["deepseek-chat", "deepseek-reasoner"],
+      "transformer": {
+        "use": ["deepseek"],
+        "deepseek-chat": {
+          "use": ["tooluse"]
+        }
+      }
+    },
+    {
+      "name": "ollama",
+      "api_base_url": "http://localhost:11434/v1/chat/completions",
+      "api_key": "ollama",
+      "models": ["qwen2.5-coder:latest"]
+    }
+  ],
+  
+  "Router": {
+    // Default model for general tasks
+    "default": "deepseek,deepseek-chat",
+    
+    // Model for background/light tasks
+    "background": "ollama,qwen2.5-coder:latest",
+    
+    // Model for reasoning tasks
+    "think": "deepseek,deepseek-reasoner",
+    
+    // Model for long context (>60k tokens)
+    "longContext": "openrouter,google/gemini-2.5-pro-preview",
+    "longContextThreshold": 60000,
+    
+    // Model for web search tasks
+    "webSearch": "openrouter,google/gemini-2.5-pro-preview",
+    
+    // NEW: Model for structured output (json_schema)
+    // This will be used when response_format.type === "json_schema"
+    "structuredOutput": "openai,gpt-4o-mini",
+    
+    // NEW: Model for JSON mode (json_object)
+    // This will be used when response_format.type === "json_object"
+    "jsonMode": "openai,gpt-3.5-turbo"
+  },
+  
+  // Optional: Custom router for more complex routing logic
+  "CUSTOM_ROUTER_PATH": "$HOME/.claude-code-router/custom-router-response-format.js"
+}

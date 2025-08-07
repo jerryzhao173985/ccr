@@ -1,0 +1,187 @@
+{
+  "API_TIMEOUT_MS": 600000,
+  "Providers": [
+    {
+      "name": "openai",
+      "api_base_url": "https://api.openai.com/v1/chat/completions",
+      "api_key": "sk-xxx",
+      "models": [
+        "gpt-4o",
+        "gpt-4o-mini",
+        "gpt-4o-2024-08-06",
+        "gpt-4o-2024-11-20",
+        "gpt-3.5-turbo",
+        "gpt-4-turbo"
+      ],
+      "transformer": {
+        "use": ["openai"],
+        "gpt-4o": {
+          "use": ["openai-response-format", "predicted-output"]
+        },
+        "gpt-4o-mini": {
+          "use": ["openai-response-format", "predicted-output"]
+        },
+        "gpt-4o-2024-08-06": {
+          "use": ["openai-response-format"]
+        },
+        "gpt-3.5-turbo": {
+          "use": ["openai-response-format"]
+        }
+      }
+    },
+    {
+      "name": "openrouter",
+      "api_base_url": "https://openrouter.ai/api/v1/chat/completions",
+      "api_key": "sk-xxx",
+      "models": [
+        "anthropic/claude-3.5-sonnet",
+        "google/gemini-2.5-pro-preview",
+        "openai/gpt-4o",
+        "openai/gpt-4o-mini"
+      ],
+      "transformer": {
+        "use": ["openrouter"],
+        "openai/gpt-4o": {
+          "use": ["openai-response-format", "predicted-output"]
+        },
+        "openai/gpt-4o-mini": {
+          "use": ["openai-response-format", "predicted-output"]
+        }
+      }
+    }
+  ],
+  "Router": {
+    "default": "anthropic/claude-3.5-sonnet",
+    "background": "openai,gpt-4o-mini",
+    "think": "anthropic/claude-3.7-sonnet:thinking",
+    "longContext": "google/gemini-2.5-pro-preview",
+    "webSearch": "anthropic/claude-3.5-sonnet",
+    
+    "// New OpenAI-specific routing options": "",
+    "structuredOutput": "openai,gpt-4o-2024-08-06",
+    "jsonMode": "openai,gpt-3.5-turbo",
+    "predictedOutput": "openai,gpt-4o-mini",
+    
+    "longContextThreshold": 60000
+  },
+  
+  "// Usage Examples": [
+    {
+      "description": "Structured Output with JSON Schema",
+      "example_request": {
+        "model": "any",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Extract the main topics from this article and respond in JSON format."
+          }
+        ],
+        "response_format": {
+          "type": "json_schema",
+          "json_schema": {
+            "name": "article_topics",
+            "strict": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "topics": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": { "type": "string" },
+                      "relevance": { "type": "number" }
+                    },
+                    "required": ["name", "relevance"]
+                  }
+                },
+                "summary": { "type": "string" }
+              },
+              "required": ["topics", "summary"]
+            }
+          }
+        }
+      },
+      "routes_to": "openai,gpt-4o-2024-08-06"
+    },
+    {
+      "description": "JSON Mode (less strict)",
+      "example_request": {
+        "model": "any",
+        "messages": [
+          {
+            "role": "user",
+            "content": "List the ingredients for chocolate cake in JSON format."
+          }
+        ],
+        "response_format": {
+          "type": "json_object"
+        }
+      },
+      "routes_to": "openai,gpt-3.5-turbo"
+    },
+    {
+      "description": "Predicted Outputs for Code Editing",
+      "example_request": {
+        "model": "any",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Change the variable name from 'data' to 'responseData' in this code:"
+          },
+          {
+            "role": "user", 
+            "content": "function fetchData() {\n  const data = await fetch('/api');\n  return data.json();\n}"
+          }
+        ],
+        "prediction": {
+          "type": "content",
+          "content": "function fetchData() {\n  const responseData = await fetch('/api');\n  return responseData.json();\n}"
+        }
+      },
+      "routes_to": "openai,gpt-4o-mini",
+      "note": "Prediction speeds up response by ~3X for minor edits"
+    },
+    {
+      "description": "Auto-detect Prediction (using transformer)",
+      "example_request": {
+        "model": "any",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Fix the syntax error in this code:"
+          },
+          {
+            "role": "user",
+            "content": "def calculate_sum(numbers)\n    total = 0\n    for num in numbers:\n        total += num\n    return total"
+          }
+        ]
+      },
+      "routes_to": "openai,gpt-4o-mini",
+      "note": "PredictedOutputTransformer auto-detects and adds prediction"
+    }
+  ],
+  
+  "// Transformer Configuration Examples": {
+    "explicit_prediction": {
+      "description": "Manually set prediction content",
+      "transformer": {
+        "use": [
+          ["explicit-predicted-output", {
+            "prediction": "Your expected output here"
+          }]
+        ]
+      }
+    },
+    "auto_prediction": {
+      "description": "Auto-detect scenarios for prediction",
+      "transformer": {
+        "use": [
+          ["predicted-output", {
+            "enablePrediction": true
+          }]
+        ]
+      }
+    }
+  }
+}
