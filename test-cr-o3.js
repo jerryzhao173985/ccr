@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
 /**
- * Test CCR with o3 model using Responses API
+ * Test CR with o3 model using Responses API
  */
 
 const http = require('http');
 
-function callCCR(data) {
+function callCR(data) {
   return new Promise((resolve, reject) => {
     const postData = JSON.stringify(data);
     
@@ -43,7 +43,7 @@ function callCCR(data) {
 }
 
 async function testO3Simple() {
-  console.log('\n🧪 Test 1: Simple o3-mini request via CCR');
+  console.log('\n🧪 Test 1: Simple o3-mini request via CR');
   console.log('=' .repeat(50));
   
   const request = {
@@ -58,8 +58,8 @@ async function testO3Simple() {
   };
   
   try {
-    console.log('📤 Sending to CCR (should route to Responses API)...');
-    const response = await callCCR(request);
+    console.log('📤 Sending to CR (should route to Responses API)...');
+    const response = await callCR(request);
     console.log('Status:', response.statusCode);
     
     if (response.statusCode === 200) {
@@ -94,7 +94,7 @@ async function testO3JsonOutput() {
   
   try {
     console.log('📤 Sending JSON mode request...');
-    const response = await callCCR(request);
+    const response = await callCR(request);
     console.log('Status:', response.statusCode);
     
     if (response.statusCode === 200) {
@@ -142,7 +142,7 @@ async function testO3StructuredOutput() {
   
   try {
     console.log('📤 Sending structured output request...');
-    const response = await callCCR(request);
+    const response = await callCR(request);
     console.log('Status:', response.statusCode);
     
     if (response.statusCode === 200) {
@@ -158,9 +158,9 @@ async function testO3StructuredOutput() {
 }
 
 async function main() {
-  console.log('🚀 Testing CCR with o3 model via Responses API');
+  console.log('🚀 Testing CR with o3 model via Responses API');
   console.log('=' .repeat(50));
-  console.log('CCR endpoint: http://127.0.0.1:3456');
+  console.log('CR endpoint: http://127.0.0.1:3456');
   console.log('Time:', new Date().toISOString());
   
   await testO3Simple();
@@ -174,7 +174,7 @@ async function main() {
   console.log('\n' + '=' .repeat(50));
   console.log('✅ All tests completed!');
   console.log('\n📝 Summary:');
-  console.log('• CCR is routing o3-mini to the Responses API endpoint');
+  console.log('• CR is routing o3-mini to the Responses API endpoint');
   console.log('• The ResponsesApiTransformer handles parameter conversions');
   console.log('• messages → input, max_tokens → max_output_tokens');
   console.log('• response_format → text.format');

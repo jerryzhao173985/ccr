@@ -7,7 +7,7 @@
 
 const http = require('http');
 
-function callCCR(data) {
+function callCR(data) {
   return new Promise((resolve, reject) => {
     const postData = JSON.stringify(data);
     
@@ -59,15 +59,15 @@ async function testO3Basic() {
   };
   
   try {
-    console.log('📤 Sending to CCR (should route to Responses API)...');
+    console.log('📤 Sending to CR (should route to Responses API)...');
     console.log('Model: o3');
     console.log('Endpoint: Will be transformed to /v1/responses');
     
-    const response = await callCCR(request);
+    const response = await callCR(request);
     console.log('Status:', response.statusCode);
     
     if (response.statusCode === 200) {
-      console.log('✅ Success! CCR is routing o3 to Responses API');
+      console.log('✅ Success! CR is routing o3 to Responses API');
     } else {
       console.log('Response:', response.data.substring(0, 500));
     }
@@ -112,7 +112,7 @@ async function testO3WithJsonSchema() {
     console.log('📤 Testing structured output with o3...');
     console.log('Format: json_schema with strict validation');
     
-    const response = await callCCR(request);
+    const response = await callCR(request);
     console.log('Status:', response.statusCode);
     
     if (response.statusCode === 200) {
@@ -141,9 +141,9 @@ async function testTransformations() {
 }
 
 async function main() {
-  console.log('🚀 Testing o3 Model with Responses API via CCR');
+  console.log('🚀 Testing o3 Model with Responses API via CR');
   console.log('=' .repeat(50));
-  console.log('CCR endpoint: http://127.0.0.1:3456');
+  console.log('CR endpoint: http://127.0.0.1:3456');
   console.log('Provider: openai-responses');
   console.log('Transformer: responses-api');
   console.log('Default model: o3 (full model, not mini)');
@@ -171,7 +171,7 @@ async function main() {
   console.log('   - All routing modes use o3 (except background: o3-mini)');
   console.log('   - Proper API key configuration');
   console.log('\n4. Linked local development folders');
-  console.log('   - /Users/jerry/llms → CCR node_modules');
+  console.log('   - /Users/jerry/llms → CR node_modules');
   console.log('   - /Users/jerry/ccr for router development');
   console.log('\n🎯 Result: o3 model works with Responses API!');
   console.log('   Claude Code now routes through CCR to o3 via /v1/responses');

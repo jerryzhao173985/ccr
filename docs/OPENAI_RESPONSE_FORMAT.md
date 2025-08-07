@@ -62,7 +62,7 @@ Add OpenAI provider and routing rules to your `config.json`:
 Create a custom router for complex routing logic:
 
 ```javascript
-// ~/.claude-code-router/custom-router.js
+// ~/.cr-router/custom-router.js
 module.exports = async function router(req, config) {
   if (req.body.response_format?.type === "json_schema") {
     // Route complex schemas to more powerful models
@@ -152,7 +152,7 @@ When using Claude Code with the router, structured outputs will automatically ro
 
 ```bash
 # The router will detect response_format and route to OpenAI
-ccr code "Extract structured data from this text..."
+cr code "Extract structured data from this text..."
 ```
 
 ## Supported Models
@@ -280,7 +280,7 @@ Set `LOG: true` in your config to see routing decisions:
 
 Verify which model is being used:
 ```bash
-tail -f ~/.claude-code-router/claude-code-router.log | grep "response format"
+tail -f ~/.cr-router/claude-code-router.log | grep "response format"
 ```
 
 ### Validate Configuration

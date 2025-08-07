@@ -2,7 +2,7 @@
 
 const http = require('http');
 
-function callCCR(data) {
+function callCR(data) {
   return new Promise((resolve, reject) => {
     const postData = JSON.stringify(data);
     
@@ -54,8 +54,8 @@ async function main() {
   };
   
   try {
-    console.log('📤 Sending to CCR...');
-    const response = await callCCR(request);
+    console.log('📤 Sending to CR...');
+    const response = await callCR(request);
     console.log('Status:', response.statusCode);
     
     if (response.statusCode === 200) {

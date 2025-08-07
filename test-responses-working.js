@@ -258,7 +258,7 @@ async function main() {
   
   console.log('\n' + '=' .repeat(50));
   console.log('✅ All tests completed!');
-  console.log('\n📝 How to use with CCR:');
+  console.log('\n📝 How to use with CR:');
   console.log('1. Add responses-api transformer to llms package');
   console.log('2. Configure provider with /v1/responses endpoint');
   console.log('3. Use transformer: ["responses-api"] in config');

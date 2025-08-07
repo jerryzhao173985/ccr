@@ -292,7 +292,7 @@ async function runTests() {
   console.log('• max_tokens → max_output_tokens');
   console.log('• max_completion_tokens → max_output_tokens');
   console.log('• reasoning_effort → reasoning.effort');
-  console.log('\n🔧 Usage with CCR:');
+  console.log('\n🔧 Usage with CR:');
   console.log('1. Configure provider with api_base_url: "https://api.openai.com/v1/responses"');
   console.log('2. Add transformer: ["responses-api"] to provider config');
   console.log('3. Route requests to appropriate models in Router config');

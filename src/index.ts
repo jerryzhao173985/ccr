@@ -88,8 +88,8 @@ async function run(options: RunOptions = {}) {
       PORT: servicePort,
       LOG_FILE: join(
         homedir(),
-        ".claude-code-router",
-        "claude-code-router.log"
+        ".cr-router",
+        "cr-router.log"
       ),
     },
   });

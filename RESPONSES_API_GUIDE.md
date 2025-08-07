@@ -2,7 +2,7 @@
 
 ## Overview
 
-The OpenAI Responses API (`/v1/responses`) is OpenAI's latest API endpoint that provides enhanced reasoning capabilities and full tool support. This guide provides quick reference for using it with Claude Code Router (CCR).
+The OpenAI Responses API (`/v1/responses`) is OpenAI's latest API endpoint that provides enhanced reasoning capabilities and full tool support. This guide provides quick reference for using it with Claude Router (CR).
 
 **Version**: 2.0.0 (responses-api-v2 transformer)
 **Status**: Production Ready
@@ -24,9 +24,9 @@ The OpenAI Responses API (`/v1/responses`) is OpenAI's latest API endpoint that 
 
 The `responses-api` transformer is now available in the `@musistudio/llms` package.
 
-### 2. Configure CCR
+### 2. Configure CR
 
-Create or update your CCR configuration (`~/.claude-code-router/config.json`):
+Create or update your CR configuration (`~/.cr-router/config.json`):
 
 ```json
 {
@@ -156,25 +156,25 @@ Create or update your CCR configuration (`~/.claude-code-router/config.json`):
 node test-responses-working.js
 ```
 
-### 2. Test with CCR
+### 2. Test with CR
 
 ```bash
-# Start CCR with Responses API config
-ccr stop
-ccr start
+# Start CR with Responses API config
+cr stop
+cr start
 
 # Test with Claude Code
-ccr code "What is 2+2?"
+cr code "What is 2+2?"
 
 # Check logs to verify Responses API is being used
-tail -f ~/.claude-code-router/logs/server.log | grep "Responses API"
+tail -f ~/.cr-router/logs/server.log | grep "Responses API"
 ```
 
 ### 3. Test JSON Output
 
 ```bash
 # Create a test script
-cat > test-ccr-json.js << 'EOF'
+cat > test-cr-json.js << 'EOF'
 const request = {
   model: "gpt-4o",
   messages: [
@@ -196,7 +196,7 @@ fetch("http://localhost:3000/v1/messages", {
 }).then(r => r.json()).then(console.log);
 EOF
 
-node test-ccr-json.js
+node test-cr-json.js
 ```
 
 ## Features

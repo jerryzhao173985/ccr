@@ -113,14 +113,14 @@ const getUseModel = async (req: any, tokenCount: number, config: any) => {
   }
   if (
     req.body?.system?.length > 1 &&
-    req.body?.system[1]?.text?.startsWith("<CCR-SUBAGENT-MODEL>")
+    req.body?.system[1]?.text?.startsWith("<CR-SUBAGENT-MODEL>")
   ) {
     const model = req.body?.system[1].text.match(
-      /<CCR-SUBAGENT-MODEL>(.*?)<\/CCR-SUBAGENT-MODEL>/s
+      /<CR-SUBAGENT-MODEL>(.*?)<\/CR-SUBAGENT-MODEL>/s
     );
     if (model) {
       req.body.system[1].text = req.body.system[1].text.replace(
-        `<CCR-SUBAGENT-MODEL>${model[1]}</CCR-SUBAGENT-MODEL>`,
+        `<CR-SUBAGENT-MODEL>${model[1]}</CR-SUBAGENT-MODEL>`,
         ""
       );
       return model[1];

@@ -74,8 +74,19 @@ export function getServicePid(): number | null {
 export async function getServiceInfo() {
     const pid = getServicePid();
     const running = isServiceRunning();
-    const config = await readConfigFile();
-    const port = config.PORT || 3456;
+    
+    // For status command, don't prompt for config if it doesn't exist
+    let port = 3456; // default port
+    try {
+        const fs = require('fs');
+        const { CONFIG_FILE } = require('../constants');
+        if (fs.existsSync(CONFIG_FILE)) {
+            const config = await readConfigFile();
+            port = config.PORT || 3456;
+        }
+    } catch (e) {
+        // Use default port if config can't be read
+    }
     
     return {
         running,

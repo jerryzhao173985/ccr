@@ -20,28 +20,28 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 npm run build
 
 # Start the router server
-ccr start
+cr start
 
 # Stop the router server
-ccr stop
+cr stop
 
 # Restart the router server
-ccr restart
+cr restart
 
 # Check server status
-ccr status
+cr status
 
 # Open the UI configuration interface
-ccr ui
+cr ui
 
 # Run Claude Code through the router
-ccr code "<your prompt>"
+cr code "<your prompt>"
 
 # View version
-ccr version
+cr version
 
 # Display help
-ccr help
+cr help
 ```
 
 ### Release
@@ -60,8 +60,8 @@ The system intercepts OpenAI-compatible API requests and routes them through thi
 
 1. **CLI Entry** (`src/cli.ts`): Commands spawn detached background processes or communicate with running service
 2. **Service Initialization** (`src/index.ts`): 
-   - Creates PID file at `~/.claude-code-router/.claude-code-router.pid`
-   - Loads JSON5 config from `~/.claude-code-router/config.json`
+   - Creates PID file at `~/.cr-router/.cr-router.pid`
+   - Loads JSON5 config from `~/.cr-router/config.json`
    - Forces HOST=127.0.0.1 when no APIKEY configured
    - Registers signal handlers for graceful shutdown
 3. **Fastify Server** (`src/server.ts`): Built on `@musistudio/llms` Server class
@@ -73,7 +73,7 @@ The system intercepts OpenAI-compatible API requests and routes them through thi
    - Custom router script (if `CUSTOM_ROUTER_PATH` configured)
    - Explicit "provider,model" format
    - Token-based routing (>60k tokens → longContext)
-   - Subagent model extraction from `<CCR-SUBAGENT-MODEL>` tags
+   - Subagent model extraction from `<CR-SUBAGENT-MODEL>` tags
    - Model-specific rules (haiku→background, thinking→think, web_search→webSearch)
    - Default fallback
 6. **Transformer Pipeline**: Request/response modifications via `@musistudio/llms`
@@ -89,7 +89,7 @@ Uses `tiktoken` library with `cl100k_base` encoding:
 
 ### Configuration System
 
-**Location**: `~/.claude-code-router/config.json` (JSON5 format with comments)
+**Location**: `~/.cr-router/config.json` (JSON5 format with comments)
 
 **Key Configuration Fields**:
 - `Providers[]`: Array of provider configs with `name`, `api_base_url`, `api_key`, `models[]`, `transformer`
@@ -158,9 +158,9 @@ React 19 application (`/ui` directory):
 ### Process Management
 
 Daemon lifecycle handling:
-- **PID Tracking**: `~/.claude-code-router/.claude-code-router.pid`
+- **PID Tracking**: `~/.cr-router/.cr-router.pid`
 - **Reference Counting**: Tracks active CLI sessions
-- **Auto-start**: `ccr code` and `ccr ui` start service if needed
+- **Auto-start**: `cr code` and `cr ui` start service if needed
 - **Graceful Shutdown**: SIGINT/SIGTERM handlers with cleanup
 - **Service Detection**: `process.kill(pid, 0)` for liveness check
 
@@ -183,7 +183,7 @@ Daemon lifecycle handling:
 
 For subagent tasks, specify model with:
 ```
-<CCR-SUBAGENT-MODEL>provider,model</CCR-SUBAGENT-MODEL>
+<CR-SUBAGENT-MODEL>provider,model</CR-SUBAGENT-MODEL>
 Your subagent prompt here...
 ```
 The tag is automatically removed before forwarding to provider.

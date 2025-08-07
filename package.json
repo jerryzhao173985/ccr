@@ -1,9 +1,9 @@
 {
-  "name": "@jerryzhao173985/ccr",
+  "name": "@jerryzhao173985/claude-router",
   "version": "2.0.0",
-  "description": "Claude Code Router with complete OpenAI Responses API support - Fork with enhanced features",
+  "description": "Claude Router (CR) - Enhanced LLM routing with complete OpenAI Responses API support",
   "bin": {
-    "ccr": "./dist/cli.js"
+    "cr": "./dist/cli.js"
   },
   "scripts": {
     "build": "node scripts/build.js",

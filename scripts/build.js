@@ -7,9 +7,23 @@ const fs = require('fs');
 console.log('Building Claude Code Router...');
 
 try {
+  // Check if @musistudio/llms needs to be built
+  const llmsPath = path.join(__dirname, '..', 'node_modules', '@musistudio', 'llms');
+  const llmsDistPath = path.join(llmsPath, 'dist', 'esm', 'server.mjs');
+  
+  if (fs.existsSync(llmsPath) && !fs.existsSync(llmsDistPath)) {
+    console.log('Building @musistudio/llms dependency...');
+    try {
+      execSync('npm run build', { cwd: llmsPath, stdio: 'inherit' });
+      console.log('✓ @musistudio/llms built successfully');
+    } catch (e) {
+      console.warn('⚠ Could not build @musistudio/llms, continuing anyway...');
+    }
+  }
+  
   // Build the main CLI application
   console.log('Building CLI application...');
-  execSync('esbuild src/cli.ts --bundle --platform=node --outfile=dist/cli.js', { stdio: 'inherit' });
+  execSync('esbuild src/cli.ts --bundle --platform=node --external:@musistudio/llms --outfile=dist/cli.js', { stdio: 'inherit' });
   
   // Copy the tiktoken WASM file
   console.log('Copying tiktoken WASM file...');

@@ -2,7 +2,7 @@
 
 const http = require('http');
 
-function callCCR(data) {
+function callCR(data) {
   return new Promise((resolve, reject) => {
     const postData = JSON.stringify(data);
     
@@ -55,7 +55,7 @@ async function testGPT4O() {
   
   try {
     console.log('📤 Sending request (should route to gpt-4o)...');
-    const response = await callCCR(request);
+    const response = await callCR(request);
     console.log('Status:', response.statusCode);
     
     if (response.statusCode === 200) {
@@ -88,7 +88,7 @@ async function testO3() {
   
   try {
     console.log('📤 Sending o3 request (via Responses API)...');
-    const response = await callCCR(request);
+    const response = await callCR(request);
     console.log('Status:', response.statusCode);
     
     if (response.statusCode === 200) {
@@ -121,7 +121,7 @@ async function testO3Reasoning() {
   
   try {
     console.log('📤 Sending reasoning request (should route to o3)...');
-    const response = await callCCR(request);
+    const response = await callCR(request);
     console.log('Status:', response.statusCode);
     
     if (response.statusCode === 200) {
@@ -137,9 +137,9 @@ async function testO3Reasoning() {
 }
 
 async function main() {
-  console.log('🚀 Testing o3 and gpt-4o via CCR');
+  console.log('🚀 Testing o3 and gpt-4o via CR');
   console.log('=' .repeat(50));
-  console.log('CCR endpoint: http://127.0.0.1:3456');
+  console.log('CR endpoint: http://127.0.0.1:3456');
   console.log('Time:', new Date().toISOString());
   
   await testGPT4O();

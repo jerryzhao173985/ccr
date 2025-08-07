@@ -16,7 +16,7 @@ import { join } from "path";
 const command = process.argv[2];
 
 const HELP_TEXT = `
-Usage: ccr [command]
+Usage: cr [command]
 
 Commands:
   start         Start server 
@@ -29,9 +29,9 @@ Commands:
   -h, help      Show help information
 
 Example:
-  ccr start
-  ccr code "Write a Hello World"
-  ccr ui
+  cr start
+  cr code "Write a Hello World"
+  cr ui
 `;
 
 async function waitForService(
@@ -71,7 +71,7 @@ async function main() {
           }
         }
         console.log(
-          "claude code router service has been successfully stopped."
+          "CR service has been successfully stopped."
         );
       } catch (e) {
         console.log(
@@ -117,7 +117,7 @@ async function main() {
           executeCodeCommand(codeArgs);
         } else {
           console.error(
-            "Service startup timeout, please manually run `ccr start` to start the service"
+            "Service startup timeout, please manually run `cr start` to start the service"
           );
           process.exit(1);
         }
@@ -174,7 +174,7 @@ async function main() {
               Router: {},
             });
             console.log(
-              "Created minimal default configuration file at ~/.claude-code-router/config.json"
+              "Created minimal default configuration file at ~/.cr-router/config.json"
             );
             console.log(
               "Please edit this file with your actual configuration."
@@ -199,7 +199,7 @@ async function main() {
             if (!(await waitForService(15000))) {
               // Wait a bit longer for the first start
               console.error(
-                "Service startup still failing. Please manually run `ccr start` to start the service and check the logs."
+                "Service startup still failing. Please manually run `cr start` to start the service and check the logs."
               );
               process.exit(1);
             }
@@ -245,7 +245,7 @@ async function main() {
       break;
     case "-v":
     case "version":
-      console.log(`claude-code-router version: ${version}`);
+      console.log(`CR (Claude Router) version: ${version}`);
       break;
     case "restart":
       // Stop the service if it's running
@@ -260,14 +260,14 @@ async function main() {
             // Ignore cleanup errors
           }
         }
-        console.log("claude code router service has been stopped.");
+        console.log("CR service has been stopped.");
       } catch (e) {
         console.log("Service was not running or failed to stop.");
         cleanupPidFile();
       }
 
       // Start the service again in the background
-      console.log("Starting claude code router service...");
+      console.log("Starting CR service...");
       const cliPath = join(__dirname, "cli.js");
       const startProcess = spawn("node", [cliPath, "start"], {
         detached: true,
