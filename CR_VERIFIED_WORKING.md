@@ -3,7 +3,7 @@
 ## Complete Test Results
 
 ### Configuration Status
-- **Config File**: `~/.cr-router/config.json` ✅
+- **Config File**: `~/.claude-router/config.json` ✅
 - **Same functionality as before**: YES ✅
 - **All providers configured**: YES ✅
 - **All transformers working**: YES ✅
@@ -108,7 +108,7 @@ cr ui         # ✅ Opens web UI
 
 ✅ **Only changes**:
 - Command: `ccr` → `cr`
-- Config directory: `~/.ccr-router` → `~/.cr-router`
+- Config directory: `~/.claude-code-router` → `~/.claude-router`
 - Package name: Different to avoid conflicts
 - GitHub repo: Stays as `jerryzhao173985/ccr`
 

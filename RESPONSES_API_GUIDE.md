@@ -26,7 +26,7 @@ The `responses-api` transformer is now available in the `@musistudio/llms` packa
 
 ### 2. Configure CR
 
-Create or update your CR configuration (`~/.cr-router/config.json`):
+Create or update your CR configuration (`~/.claude-router/config.json`):
 
 ```json
 {
@@ -167,7 +167,7 @@ cr start
 cr code "What is 2+2?"
 
 # Check logs to verify Responses API is being used
-tail -f ~/.cr-router/logs/server.log | grep "Responses API"
+tail -f ~/.claude-router/logs/server.log | grep "Responses API"
 ```
 
 ### 3. Test JSON Output

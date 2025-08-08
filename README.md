@@ -33,12 +33,12 @@ npm install -g @jerryzhao173985/claude-router
 
 ### 2. Configuration
 
-Create and configure your `~/.cr-router/config.json` file. For more details, you can refer to `config.example.json`.
+Create and configure your `~/.claude-router/config.json` file. For more details, you can refer to `config.example.json`.
 
 The `config.json` file has several key sections:
 
 - **`PROXY_URL`** (optional): You can set a proxy for API requests, for example: `"PROXY_URL": "http://127.0.0.1:7890"`.
-- **`LOG`** (optional): You can enable logging by setting it to `true`. The log file will be located at `$HOME/.cr-router.log`.
+- **`LOG`** (optional): You can enable logging by setting it to `true`. The log file will be located at `$HOME/.claude-router.log`.
 - **`APIKEY`** (optional): You can set a secret key to authenticate requests. When set, clients must provide this key in the `Authorization` header (e.g., `Bearer your-secret-key`) or the `x-api-key` header. Example: `"APIKEY": "your-secret-key"`.
 - **`HOST`** (optional): You can set the host address for the server. If `APIKEY` is not set, the host will be forced to `127.0.0.1` for security reasons to prevent unauthorized access. Example: `"HOST": "0.0.0.0"`.
 - **`NON_INTERACTIVE_MODE`** (optional): When set to `true`, enables compatibility with non-interactive environments like GitHub Actions, Docker containers, or other CI/CD systems. This sets appropriate environment variables (`CI=true`, `FORCE_COLOR=0`, etc.) and configures stdin handling to prevent the process from hanging in automated environments. Example: `"NON_INTERACTIVE_MODE": true`.

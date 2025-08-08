@@ -31,9 +31,9 @@
 
 ### 4. ✅ Critical Components
 - **responses-api-v2**: Loaded and available
-- **Config File**: `~/.cr-router/config.json` - Present
-- **Log File**: `~/.cr-router/cr-router.log` - Active
-- **PID File**: `~/.cr-router/.cr-router.pid` - Tracking
+- **Config File**: `~/.claude-router/config.json` - Present
+- **Log File**: `~/.claude-router/claude-router.log` - Active
+- **PID File**: `~/.claude-router/.claude-router.pid` - Tracking
 
 ### 5. ✅ Build Integrity
 - **CLI**: `dist/cli.js` - 3.5MB built

@@ -174,7 +174,7 @@ async function main() {
               Router: {},
             });
             console.log(
-              "Created minimal default configuration file at ~/.cr-router/config.json"
+              "Created minimal default configuration file at ~/.claude-router/config.json"
             );
             console.log(
               "Please edit this file with your actual configuration."

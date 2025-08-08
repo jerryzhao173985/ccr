@@ -60,8 +60,8 @@ The system intercepts OpenAI-compatible API requests and routes them through thi
 
 1. **CLI Entry** (`src/cli.ts`): Commands spawn detached background processes or communicate with running service
 2. **Service Initialization** (`src/index.ts`): 
-   - Creates PID file at `~/.cr-router/.cr-router.pid`
-   - Loads JSON5 config from `~/.cr-router/config.json`
+   - Creates PID file at `~/.claude-router/.claude-router.pid`
+   - Loads JSON5 config from `~/.claude-router/config.json`
    - Forces HOST=127.0.0.1 when no APIKEY configured
    - Registers signal handlers for graceful shutdown
 3. **Fastify Server** (`src/server.ts`): Built on `@musistudio/llms` Server class
@@ -89,7 +89,7 @@ Uses `tiktoken` library with `cl100k_base` encoding:
 
 ### Configuration System
 
-**Location**: `~/.cr-router/config.json` (JSON5 format with comments)
+**Location**: `~/.claude-router/config.json` (JSON5 format with comments)
 
 **Key Configuration Fields**:
 - `Providers[]`: Array of provider configs with `name`, `api_base_url`, `api_key`, `models[]`, `transformer`
@@ -158,7 +158,7 @@ React 19 application (`/ui` directory):
 ### Process Management
 
 Daemon lifecycle handling:
-- **PID Tracking**: `~/.cr-router/.cr-router.pid`
+- **PID Tracking**: `~/.claude-router/.claude-router.pid`
 - **Reference Counting**: Tracks active CLI sessions
 - **Auto-start**: `cr code` and `cr ui` start service if needed
 - **Graceful Shutdown**: SIGINT/SIGTERM handlers with cleanup

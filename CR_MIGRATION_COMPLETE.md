@@ -25,7 +25,7 @@ Successfully migrated from `ccr` to `cr` (Claude Router), creating a completely 
 
 3. **Configuration**
    - Original: `~/.claude-code-router/`
-   - Ours: `~/.cr-router/`
+   - Ours: `~/.claude-router/`
    - ✅ Separate configuration directories
 
 4. **Internal References**
@@ -94,7 +94,7 @@ cr version
 
 ## Configuration
 
-Create `~/.cr-router/config.json`:
+Create `~/.claude-router/config.json`:
 
 ```json
 {
@@ -140,7 +140,7 @@ npm run build
 
 ✅ Package renamed to `@jerryzhao173985/claude-router`
 ✅ Command changed from `ccr` to `cr`
-✅ Config directory: `~/.cr-router/`
+✅ Config directory: `~/.claude-router/`
 ✅ All internal references updated
 ✅ Repository URL updated
 ✅ No conflicts with original package

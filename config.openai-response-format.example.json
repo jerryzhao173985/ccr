@@ -102,5 +102,5 @@
   },
   
   // Optional: Custom router for more complex routing logic
-  "CUSTOM_ROUTER_PATH": "$HOME/.claude-code-router/custom-router-response-format.js"
+  "CUSTOM_ROUTER_PATH": "$HOME/.claude-router/custom-router-response-format.js"
 }

@@ -62,7 +62,7 @@ Add OpenAI provider and routing rules to your `config.json`:
 Create a custom router for complex routing logic:
 
 ```javascript
-// ~/.cr-router/custom-router.js
+// ~/.claude-router/custom-router.js
 module.exports = async function router(req, config) {
   if (req.body.response_format?.type === "json_schema") {
     // Route complex schemas to more powerful models
@@ -280,7 +280,7 @@ Set `LOG: true` in your config to see routing decisions:
 
 Verify which model is being used:
 ```bash
-tail -f ~/.cr-router/claude-code-router.log | grep "response format"
+tail -f ~/.claude-router/claude-code-router.log | grep "response format"
 ```
 
 ### Validate Configuration

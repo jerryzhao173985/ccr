@@ -4,7 +4,7 @@ import { HOME_DIR } from '../constants';
 import { join } from 'path';
 
 export async function closeService() {
-    const PID_FILE = join(HOME_DIR, '.cr-router.pid');
+    const PID_FILE = join(HOME_DIR, '.claude-router.pid');
     
     if (!isServiceRunning()) {
         console.log("No service is currently running.");

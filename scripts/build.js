@@ -7,23 +7,23 @@ const fs = require('fs');
 console.log('Building CR (Claude Router)...');
 
 try {
-  // Check if @musistudio/llms needs to be built
-  const llmsPath = path.join(__dirname, '..', 'node_modules', '@musistudio', 'llms');
+  // Check if @jerryzhao173985/llms needs to be built
+  const llmsPath = path.join(__dirname, '..', 'node_modules', '@jerryzhao173985', 'llms');
   const llmsDistPath = path.join(llmsPath, 'dist', 'esm', 'server.mjs');
   
   if (fs.existsSync(llmsPath) && !fs.existsSync(llmsDistPath)) {
-    console.log('Building @musistudio/llms dependency...');
+    console.log('Building @jerryzhao173985/llms dependency...');
     try {
       execSync('npm run build', { cwd: llmsPath, stdio: 'inherit' });
-      console.log('✓ @musistudio/llms built successfully');
+      console.log('✓ @jerryzhao173985/llms built successfully');
     } catch (e) {
-      console.warn('⚠ Could not build @musistudio/llms, continuing anyway...');
+      console.warn('⚠ Could not build @jerryzhao173985/llms, continuing anyway...');
     }
   }
   
   // Build the main CLI application
   console.log('Building CLI application...');
-  execSync('esbuild src/cli.ts --bundle --platform=node --external:@musistudio/llms --outfile=dist/cli.js', { stdio: 'inherit' });
+  execSync('esbuild src/cli.ts --bundle --platform=node --external:@jerryzhao173985/llms --outfile=dist/cli.js', { stdio: 'inherit' });
   
   // Copy the tiktoken WASM file
   console.log('Copying tiktoken WASM file...');

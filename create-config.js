@@ -65,7 +65,7 @@ const config = {
   }
 };
 
-const configPath = path.join(process.env.HOME, '.claude-code-router', 'config.json');
+const configPath = path.join(process.env.HOME, '.claude-router', 'config.json');
 
 // Backup existing config
 if (fs.existsSync(configPath)) {

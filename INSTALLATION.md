@@ -48,12 +48,12 @@ cr status
 
 2. **Configure providers:**
    
-   The default config file is created at `~/.cr-router/config.json`.
+   The default config file is created at `~/.claude-router/config.json`.
    
    Edit it to add your API keys:
    ```bash
    # Open config for editing
-   nano ~/.cr-router/config.json
+   nano ~/.claude-router/config.json
    ```
    
    Or use the UI:
@@ -78,7 +78,7 @@ cr status
 
 ### Basic Configuration
 
-Create or edit `~/.cr-router/config.json`:
+Create or edit `~/.claude-router/config.json`:
 
 ```json
 {
@@ -161,7 +161,7 @@ Or change the port in config:
 
 Check the logs:
 ```bash
-tail -f ~/.cr-router/cr-router.log
+tail -f ~/.claude-router/claude-router.log
 ```
 
 ## System Requirements
@@ -208,7 +208,7 @@ cr stop
 npm uninstall -g @jerryzhao173985/claude-router
 
 # Remove config directory (optional)
-rm -rf ~/.cr-router
+rm -rf ~/.claude-router
 ```
 
 ## Support

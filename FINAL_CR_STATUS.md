@@ -18,9 +18,9 @@
 - Properly linked and building
 
 ### Configuration
-- **Config Directory**: `~/.cr-router/` ✅
-- **PID File**: `~/.cr-router/.cr-router.pid`
-- **Log File**: `~/.cr-router/cr-router.log`
+- **Config Directory**: `~/.claude-router/` ✅
+- **PID File**: `~/.claude-router/.claude-router.pid`
+- **Log File**: `~/.claude-router/claude-router.log`
 
 ### Internal References
 - All `CCR` → `CR` ✅

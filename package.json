@@ -24,7 +24,7 @@
   "license": "MIT",
   "dependencies": {
     "@fastify/static": "^8.2.0",
-    "@musistudio/llms": "github:jerryzhao173985/llms#main",
+    "@jerryzhao173985/llms": "github:jerryzhao173985/llms#main",
     "dotenv": "^16.4.7",
     "json5": "^2.2.3",
     "openurl": "^1.1.1",
