@@ -12,17 +12,20 @@ export const apiKeyAuth =
       return done();
     }
 
-    const authKey: string =
+    const authKey =
       req.headers.authorization || req.headers["x-api-key"];
     if (!authKey) {
       reply.status(401).send("APIKEY is missing");
       return;
     }
     let token = "";
-    if (authKey.startsWith("Bearer")) {
+    if (typeof authKey === 'string' && authKey.startsWith("Bearer")) {
       token = authKey.split(" ")[1];
-    } else {
+    } else if (typeof authKey === 'string') {
       token = authKey;
+    } else {
+      reply.status(401).send("Invalid API key format");
+      return;
     }
     if (token !== apiKey) {
       reply.status(401).send("Invalid API key");

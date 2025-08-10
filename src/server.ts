@@ -1,3 +1,4 @@
+// @ts-ignore
 import Server from "@jerryzhao173985/llms";
 import { readConfigFile, writeConfigFile } from "./utils";
 import { CONFIG_FILE } from "./constants";
@@ -26,7 +27,7 @@ export const createServer = (config: any): Server => {
   });
 
   // Add endpoint to save config.json
-  server.app.post("/api/config", async (req) => {
+  server.app.post("/api/config", async (req: any) => {
     const newConfig = req.body;
     
     // Backup existing config file if it exists
@@ -41,7 +42,7 @@ export const createServer = (config: any): Server => {
   });
 
   // Add endpoint to restart the service
-  server.app.post("/api/restart", async (_, reply) => {
+  server.app.post("/api/restart", async (_: any, reply: any) => {
     reply.send({ success: true, message: "Service restart initiated" });
 
     // Restart the service after a short delay to allow response to be sent
@@ -59,7 +60,7 @@ export const createServer = (config: any): Server => {
   });
 
   // Redirect /ui to /ui/ for proper static file serving
-  server.app.get("/ui", async (_, reply) => {
+  server.app.get("/ui", async (_: any, reply: any) => {
     return reply.redirect("/ui/");
   });
 

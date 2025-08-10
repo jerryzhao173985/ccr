@@ -139,13 +139,37 @@ const getUseModel = async (req: any, tokenCount: number, config: any) => {
     log("Using think model for ", req.body.thinking);
     return config.Router.think;
   }
-  if (
-    Array.isArray(req.body.tools) &&
-    req.body.tools.some((tool: any) => tool.type?.startsWith("web_search")) &&
-    config.Router.webSearch
-  ) {
-    return config.Router.webSearch;
+  // Route based on tool usage patterns
+  if (Array.isArray(req.body.tools) && req.body.tools.length > 0) {
+    // Check for web search tools
+    if (req.body.tools.some((tool: any) => tool.type?.startsWith("web_search")) &&
+        config.Router.webSearch) {
+      return config.Router.webSearch;
+    }
+    
+    // Check for tool-heavy requests that might need more capable models
+    if (req.body.tools.length > 5 && config.Router.longContext) {
+      log("Using long context model for tool-heavy request:", req.body.tools.length, "tools");
+      return config.Router.longContext;
+    }
   }
+  
+  // Check for messages with tool_calls to ensure continuation compatibility
+  if (Array.isArray(req.body.messages)) {
+    const hasToolCalls = req.body.messages.some((msg: any) => 
+      msg.tool_calls && Array.isArray(msg.tool_calls) && msg.tool_calls.length > 0
+    );
+    const hasToolResults = req.body.messages.some((msg: any) => msg.role === 'tool');
+    
+    if (hasToolCalls || hasToolResults) {
+      log("Detected tool_calls or tool results - ensuring compatible model");
+      // Use a model that supports tool calling properly
+      if (config.Router.toolCapable) {
+        return config.Router.toolCapable;
+      }
+    }
+  }
+  
   return config.Router!.default;
 };
 

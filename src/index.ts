@@ -96,7 +96,8 @@ async function run(options: RunOptions = {}) {
   server.addHook("preHandler", apiKeyAuth(config));
   
   // Fix null content in messages before processing
-  server.addHook("preHandler", async (req, reply) => {
+  server.addHook("preHandler", async (req: any, reply: any) => {
+    try {
     if (req.body && typeof req.body === 'object') {
       let fixCount = 0;
       const isResponsesApi = req.url.includes('/v1/responses');
@@ -350,9 +351,13 @@ async function run(options: RunOptions = {}) {
         console.log(`[null-content-fix] Applied ${fixCount} fixes to prevent null content errors (${isResponsesApi ? 'Responses API' : 'Chat Completions'})`);
       }
     }
+    } catch (error) {
+      console.error('[null-content-fix] Error during content processing:', error);
+      // Don't block the request, just log the error
+    }
   });
   
-  server.addHook("preHandler", async (req, reply) => {
+  server.addHook("preHandler", async (req: any, reply: any) => {
     if(req.url.startsWith("/v1/messages")) {
       router(req, reply, config)
     }
